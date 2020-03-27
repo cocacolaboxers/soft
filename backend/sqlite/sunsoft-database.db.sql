@@ -1,0 +1,76 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "taxes" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"Name"	TEXT NOT NULL,
+	"Value"	NUMERIC NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC
+);
+CREATE TABLE IF NOT EXISTS "statuses" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"Description"	TEXT NOT NULL,
+	"Value"	INTEGER NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC
+);
+CREATE TABLE IF NOT EXISTS "items" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"ItemName"	TEXT NOT NULL,
+	"Quantity"	TEXT NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC
+);
+CREATE TABLE IF NOT EXISTS "employees" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"FirstName"	TEXT NOT NULL,
+	"LastName"	TEXT NOT NULL,
+	"Email"	TEXT NOT NULL,
+	"Address"	TEXT NOT NULL,
+	"City"	TEXT NOT NULL,
+	"UserName"	TEXT NOT NULL,
+	"Password"	TEXT NOT NULL,
+	"Language"	TEXT NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC
+);
+CREATE TABLE IF NOT EXISTS "customers" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"FirstName"	TEXT NOT NULL,
+	"LastName"	TEXT NOT NULL,
+	"Email"	TEXT NOT NULL,
+	"Address"	TEXT NOT NULL,
+	"City"	TEXT NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC
+);
+CREATE TABLE IF NOT EXISTS "orden_masters" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"ID_Status"	INTEGER NOT NULL,
+	"ID_Customer"	INTEGER NOT NULL,
+	"ID_Employee"	INTEGER NOT NULL,
+	"Confirmed"	INTEGER NOT NULL,
+	"CancelationDate"	NUMERIC NOT NULL,
+	"PaymentMethod"	TEXT NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC,
+	FOREIGN KEY("ID_Status") REFERENCES "statuses"("ID"),
+	FOREIGN KEY("ID_Customer") REFERENCES "customers"("ID"),
+	FOREIGN KEY("ID_Employee") REFERENCES "employees"("ID")
+);
+CREATE TABLE IF NOT EXISTS "orden_details" (
+	"ID"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"ID_OrdenM"	INTEGER NOT NULL,
+	"MontoBruto"	NUMERIC NOT NULL,
+	"MontoNeto"	NUMERIC NOT NULL,
+	"Quantity"	INTEGER NOT NULL,
+	"ID_Item"	INTEGER NOT NULL,
+	"ID_Tax"	INTEGER NOT NULL,
+	"createdAt"	NUMERIC,
+	"updatedAt"	NUMERIC,
+	FOREIGN KEY("ID_OrdenM") REFERENCES "orden_masters"("ID"),
+	FOREIGN KEY("ID_Item") REFERENCES "items"("ID"),
+	FOREIGN KEY("ID_Tax") REFERENCES "taxes"("ID")
+);
+INSERT INTO "taxes" ("ID","Name","Value","createdAt","updatedAt") VALUES (1,'Exento',0,'2020-03-26 16:46:13.162 +00:00','2020-03-26 16:46:13.162 +00:00');
+INSERT INTO "taxes" ("ID","Name","Value","createdAt","updatedAt") VALUES (2,'ITBIS',18,'2020-03-26 17:11:48.815 +00:00','2020-03-26 17:11:48.815 +00:00');
+COMMIT;
