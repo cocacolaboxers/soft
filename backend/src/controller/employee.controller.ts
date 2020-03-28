@@ -3,6 +3,7 @@
 */
 import { Request, Response } from 'express';
 const Employee = require('../models/employee.model');
+const bcrypt = require('bcrypt');
 
 //Esta funcion busca un Employee por ID
 export async function findById(req: Request, res: Response) {
@@ -23,6 +24,8 @@ export async function find(req: Request, res: Response) {
 //Esta funcion crea un Employee
 export async function saveEmployee(req: Request, res: Response) {
 	const new_employee = req.body;
+	const salt = await bcrypt.genSalt();
+	const hashPassword = await bcrypt.hash(req.body.Password, salt);
 	let {
 		FirstName,
 		LastName,
@@ -33,6 +36,7 @@ export async function saveEmployee(req: Request, res: Response) {
 		Password,
 		Language,
 	} = new_employee;
+	Password = hashPassword;
 	await Employee.create({
 		FirstName,
 		LastName,
@@ -51,6 +55,11 @@ export async function saveEmployee(req: Request, res: Response) {
 export async function updateEmployee(req: Request, res: Response) {
 	const new_employee = req.body;
 	let { ID } = new_employee;
+	if (new_employee.Password != null) {
+		const salt = await bcrypt.genSalt();
+		const hashPassword = await bcrypt.hash(req.body.Password, salt);
+		new_employee.Password = hashPassword;
+	}
 	await Employee.update(new_employee, { where: { ID: ID } })
 		.then(() => res.json({ message: 'Employee Updated' }))
 		.catch((err: Error) => console.log('Employee Error: ' + err));

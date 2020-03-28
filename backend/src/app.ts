@@ -7,7 +7,7 @@ import OrdenRoutes from './routes/orden.route';
 import ItemRoutes from './routes/item.route';
 import EmployeeRoutes from './routes/employee.route';
 import CustomerRoutes from './routes/customer.route';
-import { Sequelize } from 'sequelize';
+import AuthenticationRoutes from './routes/authentication.route';
 const db = require('./database');
 
 export class App {
@@ -38,6 +38,7 @@ export class App {
 		this.app.use('/item', ItemRoutes);
 		this.app.use('/employee', EmployeeRoutes);
 		this.app.use('/customer', CustomerRoutes);
+		this.app.use('/login', AuthenticationRoutes);
 	}
 
 	async DB() {
