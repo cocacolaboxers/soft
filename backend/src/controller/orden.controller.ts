@@ -2,7 +2,7 @@
     Aqui estan definidas las funciones para el crud de mi tabla orden_masters y orden_details
 */
 import { Request, Response } from 'express';
-import { Orden_Mater, Orden_Detail } from '../models/orden.model';
+import { Orden_Mater, Orden_Detail, Consultas } from '../models/orden.model';
 
 //Esta funcion busca un campo de la tabla orden_masters por ID
 export async function findOrdenMasterById(req: Request, res: Response) {
@@ -118,4 +118,13 @@ export async function deleteOrdenDetail(req: Request, res: Response) {
 	await Orden_Detail.destroy({ where: { ID: ID } })
 		.then(() => res.json({ message: 'Orden Deleted' }))
 		.catch((err: Error) => console.log('Orden Error: ' + err));
+}
+
+/*************************************** consultas ***************************************/
+
+//Esta funcion busca todos los campos de la vista consultas
+export async function findConsultas(req: Request, res: Response) {
+	await Consultas.findAll()
+		.then((orden: any) => res.json(orden))
+		.catch((err: Error) => console.log('Orden error: ' + err));
 }

@@ -1,7 +1,22 @@
 import * as Sequelize from 'sequelize';
 const conn = require('../database');
 
-const Employee = conn.define('employee', {
+export const Assign = conn.define('assigns', {
+	ID: {
+		type: Sequelize.INTEGER,
+	},
+	ID_Customer: {
+		type: Sequelize.INTEGER,
+	},
+	ID_Employee: {
+		type: Sequelize.INTEGER,
+	},
+	DescriptionTask: {
+		type: Sequelize.TEXT,
+	},
+});
+
+export const AssignView = conn.define('assignviews', {
 	ID: {
 		type: Sequelize.INTEGER,
 	},
@@ -20,21 +35,9 @@ const Employee = conn.define('employee', {
 	City: {
 		type: Sequelize.TEXT,
 	},
-	UserName: {
-		type: Sequelize.TEXT,
-	},
-	Password: {
-		type: Sequelize.TEXT,
-	},
-	Role: {
-		type: Sequelize.TEXT,
-	},
-	Language: {
-		type: Sequelize.TEXT,
-	},
 	Phone: {
 		type: Sequelize.TEXT,
 	},
 });
 
-module.exports = Employee;
+// module.exports = Assign;

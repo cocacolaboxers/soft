@@ -6,7 +6,9 @@ const router = Router();
 
 import {
 	find,
+	findView,
 	findById,
+	findViewById,
 	saveCustomer,
 	updateCustomer,
 	deleteCustomer,
@@ -16,6 +18,11 @@ router
 	.route('/find')
 	.get(find)
 	.post(findById);
+
+router
+	.route('/findView')
+	.get(findView)
+	.post(findViewById);
 
 router.route('/saveCustomer').post(saveCustomer);
 

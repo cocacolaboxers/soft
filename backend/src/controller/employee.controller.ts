@@ -35,6 +35,8 @@ export async function saveEmployee(req: Request, res: Response) {
 		UserName,
 		Password,
 		Language,
+		Role,
+		Phone,
 	} = new_employee;
 	Password = hashPassword;
 	await Employee.create({
@@ -46,6 +48,8 @@ export async function saveEmployee(req: Request, res: Response) {
 		UserName,
 		Password,
 		Language,
+		Role,
+		Phone,
 	})
 		.then(() => res.json({ message: 'Employee Created' }))
 		.catch((err: Error) => console.log('Employee Error: ' + err));

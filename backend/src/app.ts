@@ -1,6 +1,8 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+
+/****************** Routes ******************/
 import TaxRoutes from './routes/tax.route';
 import StatusRoutes from './routes/status.route';
 import OrdenRoutes from './routes/orden.route';
@@ -8,6 +10,8 @@ import ItemRoutes from './routes/item.route';
 import EmployeeRoutes from './routes/employee.route';
 import CustomerRoutes from './routes/customer.route';
 import AuthenticationRoutes from './routes/authentication.route';
+import AssignRoutes from './routes/assign.route';
+
 const db = require('./database');
 
 export class App {
@@ -39,6 +43,7 @@ export class App {
 		this.app.use('/employee', EmployeeRoutes);
 		this.app.use('/customer', CustomerRoutes);
 		this.app.use('/login', AuthenticationRoutes);
+		this.app.use('/assign', AssignRoutes);
 	}
 
 	async DB() {

@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import {
+	Collapse,
+	Navbar,
+	NavbarToggler,
+	NavbarBrand,
+	Nav,
+	Button,
+	UncontrolledDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem,
+	Input,
+	FormGroup,
+} from 'reactstrap';
 
 export default class Navegation extends Component {
-	state = {
-		eRead: '',
-		eAd: '',
-		redirect: false,
-		ae: 'false',
-		dnv: 'collapse navbar-collapse',
-	};
-
-	componentDidMount() {
-		if (sessionStorage.getItem('token')) {
-			console.log('User logged in');
-		} else {
-			this.setState({ redirect: true });
-		}
+	constructor(props) {
+		super(props);
+		this.toggle = this.toggle.bind(this);
+		this.state = {
+			dropdownOpen: false,
+			redirect: false,
+			isOpen: false,
+		};
 	}
-	//logout user
+
+	toggle() {
+		this.setState({
+			dropdownOpen: !this.state.dropdownOpen,
+			isOpen: !this.state.isOpen,
+		});
+	}
+
 	logout = (e) => {
 		e.preventDefault();
 		sessionStorage.setItem('token', '');
@@ -25,74 +40,72 @@ export default class Navegation extends Component {
 		this.setState({ redirect: true });
 		console.log('User logged out');
 	};
-	//navegation bar
-	navbarT = (e) => {
-		e.preventDefault();
-		if (this.state.ae === 'false') {
-			this.setState({
-				ae: 'true',
-				dnv: 'collapse navbar-collapse show',
-			});
-		} else {
-			this.setState({
-				ae: 'false',
-				dnv: 'collapse navbar-collapse',
-			});
-		}
+
+	search = (e) => {
+		console.log('No disponible');
 	};
 
 	render() {
-		if (this.state.redirect) {
+		if (sessionStorage.getItem('token')) {
+			return (
+				<div>
+					<Navbar color='dark' dark expand='md'>
+						<NavbarBrand href='/'>SunSoft</NavbarBrand>
+						<NavbarToggler onClick={this.toggle} />
+						<Collapse isOpen={this.state.isOpen} navbar>
+							<Nav className='mr-auto' navbar>
+								<UncontrolledDropdown nav inNavbar>
+									<DropdownToggle nav caret>
+										Administracion
+									</DropdownToggle>
+									<DropdownMenu right>
+										<DropdownItem tag={Link} to='/signup'>
+											Registro de usuario
+										</DropdownItem>
+										<DropdownItem tag={Link} to='/role'>
+											Asignar roles
+										</DropdownItem>
+									</DropdownMenu>
+								</UncontrolledDropdown>
+								<UncontrolledDropdown nav inNavbar>
+									<DropdownToggle nav caret>
+										Procesos
+									</DropdownToggle>
+									<DropdownMenu right>
+										<DropdownItem tag={Link} to='/assign'>
+											Asignar clientes
+										</DropdownItem>
+									</DropdownMenu>
+								</UncontrolledDropdown>
+								<UncontrolledDropdown nav inNavbar>
+									<DropdownToggle nav caret>
+										Consultas
+									</DropdownToggle>
+									<DropdownMenu right>
+										<DropdownItem tag={Link} to='/consultas'>
+											Comprobantes
+										</DropdownItem>
+									</DropdownMenu>
+								</UncontrolledDropdown>
+							</Nav>
+							<FormGroup className='form-inline my-2 my-lg-0'>
+								<Input
+									className='form-control mr-sm-2'
+									type='search'
+									placeholder='Search'
+									aria-label='Search'
+									onChange={this.search}
+								/>
+								<Button outline color='success' onClick={this.logout}>
+									Logout
+								</Button>
+							</FormGroup>
+						</Collapse>
+					</Navbar>
+				</div>
+			);
+		} else {
 			return <Redirect to={'/login'} />;
 		}
-
-		return (
-			<nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-				<Link className='navbar-brand' to='/'>
-					SunSoft
-				</Link>
-				<button
-					className='navbar-toggler'
-					type='button'
-					data-toggle='collapse'
-					data-target='#navbarNav'
-					aria-controls='navbarNav'
-					aria-expanded={this.state.ae}
-					aria-label='Toggle navigation'
-					onClick={this.navbarT}
-				>
-					<span className='navbar-toggler-icon'></span>
-				</button>
-				<div className={this.state.dnv} id='navbarNav'>
-					<ul className='navbar-nav mr-auto mt-2 mt-lg-0'>
-						<li>
-							<Link className='nav-link' to='/'>
-								Administracion
-							</Link>
-						</li>
-						<li>
-							<Link className='nav-link' to='/'>
-								Procesos
-							</Link>
-						</li>
-						<li>
-							<Link className='nav-link' to='/'>
-								Consultas
-							</Link>
-						</li>
-					</ul>
-					<form className='form-inline my-2 my-lg-0'>
-						<button
-							className='btn btn-outline-success my-2 my-sm-0'
-							color='success'
-							type='submit'
-							onClick={this.logout}
-						>
-							Logout
-						</button>
-					</form>
-				</div>
-			</nav>
-		);
 	}
 }

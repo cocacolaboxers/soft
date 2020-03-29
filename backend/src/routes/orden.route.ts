@@ -15,6 +15,7 @@ import {
 	saveOrdenDetail,
 	updateOrdenDetail,
 	deleteOrdenDetail,
+	findConsultas,
 } from '../controller/orden.controller';
 
 router
@@ -40,5 +41,9 @@ router.route('/saveOrdenDetail').post(saveOrdenDetail);
 router.route('/updateOrdenDetail').put(updateOrdenDetail);
 
 router.route('/deleteOrdenDetail').delete(deleteOrdenDetail);
+
+/*************************************** consultas ***************************************/
+
+router.route('/findConsulta').get(findConsultas);
 
 export default router;

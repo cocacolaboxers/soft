@@ -16,7 +16,6 @@ export default class Login extends Component {
 			redirec: false,
 			redirectS: false,
 		};
-		sessionStorage.setItem('t_usuario', '');
 	}
 	//event of targets
 	onChange = (e) => {
@@ -26,9 +25,10 @@ export default class Login extends Component {
 	//this prove if the user is admin or comun user
 	login = async (e) => {
 		e.preventDefault();
-		const { username, password } = this.state;
-		this.state.user.UserName = username;
-		this.state.user.Password = password;
+		let { user } = this.state;
+		user.UserName = this.state.username;
+		user.Password = this.state.password;
+		this.setState({ user });
 		await axios
 			.post('http://localhost:4000/login', this.state.user)
 			.then((res) => {
@@ -39,24 +39,15 @@ export default class Login extends Component {
 			})
 			.catch((err) => console.log('Error: ' + err));
 	};
-	//redirect to login
-	signup = (e) => {
-		e.preventDefault();
-		sessionStorage.setItem('cancel_redirec', '/login');
-		this.setState({ redirectS: true });
-	};
+
 	//render components
 	render() {
 		if (this.state.redirec && sessionStorage.getItem('token')) {
 			return <Redirect to={'/'} />;
 		}
 
-		if (this.state.redirectS) {
-			return <Redirect to={'/signup'} />;
-		}
-
 		return (
-			<div className='container h-100 d-flex justify-content-center align-items-center'>
+			<div className='container h-100 d-flex justify-content-center align-items-center login'>
 				<form className='form-signin'>
 					<h1>Login</h1>
 					<div className='form-group'>
