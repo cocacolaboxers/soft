@@ -12,6 +12,9 @@ import CustomerRoutes from './routes/customer.route';
 import AuthenticationRoutes from './routes/authentication.route';
 import AssignRoutes from './routes/assign.route';
 
+/****************** Routes Quickbook ******************/
+import QuickBookRoutes from './routes/quickbook.route';
+
 const db = require('./database');
 
 export class App {
@@ -44,6 +47,7 @@ export class App {
 		this.app.use('/customer', CustomerRoutes);
 		this.app.use('/login', AuthenticationRoutes);
 		this.app.use('/assign', AssignRoutes);
+		this.app.use('/quickbook', QuickBookRoutes);
 	}
 
 	async DB() {

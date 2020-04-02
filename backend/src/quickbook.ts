@@ -1,0 +1,14 @@
+var QuickBooks = require('node-quickbooks');
+
+module.exports = new QuickBooks(
+	'ABUjf7BvG5DGlEFGGGEpctm2T5YjvBCGhfWjrCaLRXhKbRLJZd',
+	'WhnGiq9oQsmyre5SHJdaJN48INkVey8rTC9y7eyT',
+	'eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..WiZDbDS074LWM131GNr9Lw.aDQwNvFx5WZ2FTfJSWmVebeQ3lLc8mo7zgy7XlW-l8Vf0_oGuiW_jOsyCb2W5k_zOLW4a9OroHW6moyQtAnn-O7-E84AakNMWqqF4l7r9TtByFfxlYPM9vRa2zP17SOg59-CYHnVxMqgrydD1F-2mLDPadHdhO2q5SpyuIhpM7YrGqgOsiPt7YtoafvumZiDVE-RTP7yokDrO49ofiRdYF6ntjLHOML08HimZIZP0PVqpJ2hCXEPXf4w5tLD6HPWv0n9E6bT_Mpjfj9VS3KzPLiio4yx5f2SeKKDr_arykhf1XSxu15sZw9phfKpIYmy1sS4HINtbYPIvtrRKpKXM_bp9Awle-MNqM2m7lWPjnjGPK2sDTRE8fTRpv2I9q0xGndNy8x9J_Nbj9P-Lz6vN-LUdXcJ_E9vluIZ7o0DX_wYpeEOodO0vFSfeLr29iASLUy2d05qa5rVbKJkcz6iKED2HjN5ZzaVfzT5lYZlt1hmCBk1Li0wKuXarvhdZfNkwUCvYW8WzGfKVUICYZemMq_KRuXhsZk7jtmt7HuakX4fCv5Oc8o6VRcNd7chfqPozupV0m55HEBdOc0VwzzDq2AMEOnDsOeOUPlTNI-9mGh3NRbXS8pYe2GS_qyJBvpQxPainCULQ5t42hTThOgmeVKIeH-Z-f4gYTMpHd3_F0vwPrG6AaGq35FyFP71h7zeO3gUVc4MJ9JuetzJRs893cS1RRZE5dJYPfM6knaiU5t7dw1sbU1E8cMRZfmhV589e2MrBdYqKNVB-zk-GBnDseJJJgv9nJwZ-ZWoGr-xJeV_nJlQAyRUTn_eS8GaexoPNGVVnX-AmQdmv1SGeVWpWsOOBXcbQH0zBEFwltJXaVo.AhCTZwquN7Ej6YqD20y1OA',
+	false, // no token secret for oAuth 2.0
+	'4620816365042593030',
+	true, // use the sandbox?
+	true, // enable debugging?
+	47, // set minorversion, or null for the latest version
+	'2.0', //oAuth version
+	'AB115945968986H4jVzJiwDN0bGOHgUUKWFLbHqgaPlbPTvECS'
+);
