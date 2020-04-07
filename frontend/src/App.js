@@ -12,6 +12,7 @@ import Customer from './components/Customers';
 import CustomerView from './components/CustomerDetails';
 import CustomerAssign from './components/CustomerAssign';
 import Consultas from './components/Consultas';
+import Facturas from './components/Facturas';
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 			<Route path='/customer' exact component={CustomerView} />
 			<Route path='/assign' exact component={CustomerAssign} />
 			<Route path='/consultas' exact component={Consultas} />
+			<Route path='/facturas' exact component={Facturas} />
 		</Router>
 	);
 }

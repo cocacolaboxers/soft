@@ -27,6 +27,7 @@ export async function saveEmployee(req: Request, res: Response) {
 	const salt = await bcrypt.genSalt();
 	const hashPassword = await bcrypt.hash(req.body.Password, salt);
 	let {
+		ID,
 		FirstName,
 		LastName,
 		Email,
@@ -38,8 +39,10 @@ export async function saveEmployee(req: Request, res: Response) {
 		Role,
 		Phone,
 	} = new_employee;
+	console.log(new_employee);
 	Password = hashPassword;
 	await Employee.create({
+		ID,
 		FirstName,
 		LastName,
 		Email,

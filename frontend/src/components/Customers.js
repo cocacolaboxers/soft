@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, CardText, Row, Col } from 'reactstrap';
+import {
+	Table,
+	Button,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+} from 'reactstrap';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
 export default class showBooks extends Component {
 	constructor(props) {
 		super(props);
+		this.toggle = this.toggle.bind(this);
 		this.state = {
 			customer: [],
 			redirectP: false,
+			isOpen: false,
+			modal: false,
+			modalValue: 1,
 		};
+	}
+
+	toggle() {
+		this.setState({
+			modal: !this.state.modal,
+			isOpen: !this.state.isOpen,
+		});
 	}
 
 	componentDidMount() {
@@ -26,6 +44,11 @@ export default class showBooks extends Component {
 		sessionStorage.setItem('idCustomer', id);
 	}
 
+	clickModal(id) {
+		console.log(id);
+		this.setState({ modalValue: id });
+	}
+
 	render() {
 		if (this.state.redirectP) {
 			return <Redirect to={'/customer'} />;
@@ -33,45 +56,69 @@ export default class showBooks extends Component {
 
 		return (
 			<div>
-				<h1>Clientes</h1>
+				<h1>Clientes asignados</h1>
 				<div>
 					<div className='container p-4 rounded'>
-						{this.state.customer.map((customer) => (
-							<Row
-								onClick={this.cajaClick.bind(this, customer.ID)}
-								key={customer.ID}
-							>
-								<Card body className='rounded'>
-									<Row>
-										<Col md={4}>
-											<CardTitle className='center font-weight-bold'>
-												Cliente:
-												<div>
-													{`${customer.FirstName} ${customer.LastName}`}
-												</div>
-											</CardTitle>
-										</Col>
-										<Col md={4}>
-											<CardText className='right'>
-												<b>Telefono:</b> {customer.Phone}
-											</CardText>
-											<CardText className='right'>
-												<b>Correo:</b> {customer.Email}
-											</CardText>
-										</Col>
-										<Col md={4}>
-											<CardText className='right'>
-												<b>Vendedor:</b>{' '}
-												{`${customer.NameEmployee} ${customer.LastNameEmployee}`}
-											</CardText>
-											<CardText className='right'>
-												<b>Ubicacion:</b> {customer.City}
-											</CardText>
-										</Col>
-									</Row>
-								</Card>
-							</Row>
-						))}
+						<Table bordered hover className='table'>
+							<thead className='thead-dark'>
+								<tr>
+									<th>#</th>
+									<th>Cliente</th>
+									<th>Telefono</th>
+									<th>Correo</th>
+									<th>Vendedor</th>
+									<th>Ubicación</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								{this.state.customer.map((cust) => (
+									<tr key={cust.ID}>
+										<th scope='row'>{cust.ID}</th>
+										<td>{`${cust.FirstName} ${cust.LastName}`}</td>
+										<td>{cust.Phone}</td>
+										<td>{cust.Email}</td>
+										<td>{`${cust.NameEmployee} ${cust.LastNameEmployee}`}</td>
+										<td>{cust.City}</td>
+										<td onClick={this.clickModal.bind(this, cust.ID)}>
+											<Button outline color='info' onClick={this.toggle}>
+												Ver detalle
+											</Button>
+										</td>
+									</tr>
+								))}
+								<Modal isOpen={this.state.modal} toggle={this.toggle}>
+									<ModalHeader toggle={this.toggle}>
+										Detalle de la orden
+									</ModalHeader>
+									<ModalBody>
+										<Table>
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Tarea asignada</th>
+												</tr>
+											</thead>
+											<tbody>
+												{this.state.customer.map((cust) => {
+													return cust.ID === this.state.modalValue ? (
+														<tr key={cust.ID}>
+															<th scope='row'>{cust.ID}</th>
+															<th scope='row'>{cust.DescriptionTask}</th>
+														</tr>
+													) : null;
+												})}
+											</tbody>
+										</Table>
+									</ModalBody>
+									<ModalFooter>
+										<Button color='info' onClick={this.toggle}>
+											Cancel
+										</Button>
+									</ModalFooter>
+								</Modal>
+							</tbody>
+						</Table>
 					</div>
 				</div>
 			</div>

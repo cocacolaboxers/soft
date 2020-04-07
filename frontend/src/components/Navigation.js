@@ -83,7 +83,10 @@ export default class Navegation extends Component {
 									</DropdownToggle>
 									<DropdownMenu right>
 										<DropdownItem tag={Link} to='/consultas'>
-											Comprobantes
+											Ordenes
+										</DropdownItem>
+										<DropdownItem tag={Link} to='/facturas'>
+											Facturas
 										</DropdownItem>
 									</DropdownMenu>
 								</UncontrolledDropdown>

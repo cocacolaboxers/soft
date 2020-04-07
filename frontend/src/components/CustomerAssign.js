@@ -37,8 +37,8 @@ export default class Register extends Component {
 		e.preventDefault();
 		let isUpdate = false;
 		this.state.assigns.map((customer) => {
-			if (customer.ID_Customer === this.state.assign.ID_Customer) {
-				isUpdate = true;
+			if (customer.ID_Customer == this.state.assign.ID_Customer) {
+				return (isUpdate = true);
 			}
 		});
 		console.log(isUpdate);
