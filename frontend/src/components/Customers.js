@@ -66,9 +66,9 @@ export default class showBooks extends Component {
 									<th>Cliente</th>
 									<th>Telefono</th>
 									<th>Correo</th>
-									<th>Vendedor</th>
 									<th>Ubicación</th>
-									<th>Acción</th>
+									<th>Vendedor asignado</th>
+									{/* <th>Acción</th> */}
 								</tr>
 							</thead>
 							<tbody>
@@ -78,13 +78,13 @@ export default class showBooks extends Component {
 										<td>{`${cust.FirstName} ${cust.LastName}`}</td>
 										<td>{cust.Phone}</td>
 										<td>{cust.Email}</td>
-										<td>{`${cust.NameEmployee} ${cust.LastNameEmployee}`}</td>
 										<td>{cust.City}</td>
-										<td onClick={this.clickModal.bind(this, cust.ID)}>
+										<td>{`${cust.NameEmployee} ${cust.LastNameEmployee}`}</td>
+										{/* <td onClick={this.clickModal.bind(this, cust.ID)}>
 											<Button outline color='info' onClick={this.toggle}>
 												Ver detalle
 											</Button>
-										</td>
+										</td> */}
 									</tr>
 								))}
 								<Modal isOpen={this.state.modal} toggle={this.toggle}>

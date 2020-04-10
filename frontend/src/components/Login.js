@@ -29,13 +29,20 @@ export default class Login extends Component {
 		user.UserName = this.state.username;
 		user.Password = this.state.password;
 		this.setState({ user });
+		const usersTemp = await axios.get('http://localhost:4000/employee/find');
 		await axios
 			.post('http://localhost:4000/login', this.state.user)
 			.then((res) => {
-				if (res.data.accessToken != null) {
-					sessionStorage.setItem('token', res.data.accessToken);
-					this.setState({ redirec: true });
-				}
+				usersTemp.data.map((us) => {
+					if (
+						res.data.accessToken != null &&
+						us.Role == 'Supervisor' &&
+						us.UserName == user.UserName
+					) {
+						sessionStorage.setItem('token', res.data.accessToken);
+						this.setState({ redirec: true });
+					}
+				});
 			})
 			.catch((err) => console.log('Error: ' + err));
 	};

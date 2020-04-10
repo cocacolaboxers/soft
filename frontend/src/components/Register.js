@@ -40,14 +40,31 @@ export default class Register extends Component {
 				.then((res) => {
 					user = res.data;
 				});
-			new_user.ID = parseInt(user[0].Id);
-			new_user.FirstName = user[0].GivenName;
-			new_user.LastName = user[0].FamilyName;
-			new_user.Email = user[0].PrimaryEmailAddr.Address;
-			new_user.Address = user[0].PrimaryAddr.Line1;
-			new_user.City = user[0].PrimaryAddr.City;
-			new_user.Phone = user[0].PrimaryPhone.FreeFormNumber;
-			this.setState({ user, new_user });
+
+			let isRegister = false;
+			user = user.filter((user) => {
+				temp_user.map((temp_user1) => {
+					if (temp_user1.FirstName == user.GivenName) isRegister = true;
+				});
+				if (!isRegister) {
+					return user;
+				} else {
+					isRegister = false;
+					return null;
+				}
+			});
+
+			if (user.length > 0) {
+				new_user.ID = parseInt(user[0].Id);
+				new_user.FirstName = user[0].GivenName;
+				new_user.LastName = user[0].FamilyName;
+				new_user.Email = user[0].PrimaryEmailAddr.Address;
+				new_user.Address = user[0].PrimaryAddr.Line1;
+				new_user.City = user[0].PrimaryAddr.City;
+				new_user.Phone = user[0].PrimaryPhone.FreeFormNumber;
+			}
+
+			this.setState({ user, new_user, temp_user });
 		} else {
 			this.setState({ redirect: true });
 		}

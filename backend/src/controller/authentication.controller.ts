@@ -25,7 +25,7 @@ export async function authentication(req: Request, res: Response) {
 			.catch((err: Error) => console.log('User error: ' + err));
 		const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 		if (isLogged) {
-			res.json({ accessToken: accessToken });
+			res.json({ accessToken: accessToken, user: user.UserName });
 		} else {
 			res.json({ accessToken: null });
 		}

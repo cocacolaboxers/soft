@@ -85,7 +85,7 @@ export default class Consultas extends Component {
 											<th>Artículo</th>
 											<th>Cantidad</th>
 											<th>Monto Bruto</th>
-											<th>Tax</th>
+											{/* <th>Tax</th> */}
 											<th>Monto Neto</th>
 										</tr>
 									</thead>
@@ -105,12 +105,12 @@ export default class Consultas extends Component {
 																	2
 																)}
 															</td>
-															<td>
+															{/* <td>
 																{line.ItemBasedExpenseLineDetail.TaxCodeRef
 																	.value === 'NON'
 																	? Number('0').toFixed(2)
 																	: null}
-															</td>
+															</td> */}
 															<td>{line.Amount.toFixed(2)}</td>
 														</tr>
 													))}

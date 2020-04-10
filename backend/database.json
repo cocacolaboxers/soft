@@ -1,0 +1,7 @@
+{
+	"development": {
+		"dialect": "sqlite",
+		"storage": "sqlite/sunsoft-database.db",
+		"migrations-path": "./sqlite/sunsoft-database.db"
+	}
+}

@@ -21,13 +21,9 @@ export default class Register extends Component {
 	async componentWillMount() {
 		const res = await axios.get('http://localhost:4000/Employee/find');
 		this.setState({ user: res.data });
-		let { user, updateUser } = this.state;
-		user.map((user) => {
-			if (user.Role == null) {
-				updateUser.ID = user.ID;
-				return this.setState({ updateUser });
-			}
-		});
+		let { updateUser } = this.state;
+		updateUser.ID = this.state.user[0].ID;
+		this.setState({ updateUser });
 	}
 
 	signin = async (e) => {
@@ -58,7 +54,7 @@ export default class Register extends Component {
 
 	handdleIDChange = (e) => {
 		let { updateUser } = this.state;
-		updateUser.ID = e.target.value;
+		updateUser.ID = Number(e.target.value);
 		this.setState({ updateUser });
 	};
 
@@ -102,6 +98,7 @@ export default class Register extends Component {
 								>
 									<option value='Conductor'>Conductor</option>
 									<option value='Vendedor'>Vendedor</option>
+									<option value='Supervisor'>Supervisor</option>
 								</Input>
 							</FormGroup>
 						</Col>
